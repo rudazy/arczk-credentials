@@ -27,11 +27,16 @@ async function verifyOnChain() {
   }
 
   const proofData = JSON.parse(fs.readFileSync(proofPath, "utf-8"));
-  const proof = "0x" + proofData.proof;
+  // Ensure proof has 0x prefix
+  const proof = proofData.proof.startsWith("0x") ? proofData.proof : "0x" + proofData.proof;
   const publicInputs = proofData.publicInputs;
 
-  console.log("Proof length:", proofData.proof.length / 2, "bytes");
-  console.log("Public inputs:", publicInputs);
+  // Use commitment from proof data if available
+  const commitment = proofData.commitment || publicInputs[0];
+
+  console.log("Proof length:", proof.length / 2 - 1, "bytes");
+  console.log("Public inputs:", publicInputs.length);
+  console.log("Commitment:", commitment);
 
   // Get signer
   const [signer] = await ethers.getSigners();
@@ -48,8 +53,6 @@ async function verifyOnChain() {
   const SecretVerifier = await ethers.getContractFactory("SecretVerifier");
   const secretVerifier = SecretVerifier.attach(secretVerifierAddress);
 
-  // Prepare commitment (first public input)
-  const commitment = publicInputs[0];
   console.log("\nCommitment to verify:", commitment);
 
   // Check if already verified

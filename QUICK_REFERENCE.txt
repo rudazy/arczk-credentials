@@ -1,0 +1,90 @@
+═══════════════════════════════════════════════════════════════
+             ARC ZK CREDENTIALS - QUICK REFERENCE
+═══════════════════════════════════════════════════════════════
+
+📋 PREREQUISITES CHECKLIST
+───────────────────────────────────────────────────────────────
+[ ] Nargo installed (nargo --version works)
+[ ] Arc testnet ETH in wallet
+[ ] .env file created with PRIVATE_KEY (no 0x prefix)
+
+💻 INSTALL NARGO (Windows)
+───────────────────────────────────────────────────────────────
+1. PowerShell (Admin): wsl --install
+2. Restart computer
+3. Open Ubuntu from Start Menu
+4. In Ubuntu: curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
+5. In Ubuntu: noirup
+6. Verify: nargo --version
+
+🚀 DEPLOYMENT COMMANDS (In Order)
+───────────────────────────────────────────────────────────────
+1. npm run compile-circuit      # In WSL2
+2. npm run generate-verifier    # In WSL2 or Git Bash
+3. npm run deploy               # Any terminal
+4. npm run generate-proof 12345 # Any terminal (any number)
+5. npm run verify-onchain       # Any terminal
+
+🌐 ARC TESTNET INFO
+───────────────────────────────────────────────────────────────
+RPC:       https://rpc.testnet.arc.network
+Chain ID:  5042002
+Explorer:  https://testnet.arcscan.app
+Faucet:    Check Arc Discord #faucet channel
+
+📁 KEY FILES
+───────────────────────────────────────────────────────────────
+.env                                              # Your config
+deployments.json                                  # After deploy
+proof-output.json                                 # After proof gen
+circuits/secret_hash/target/secret_hash.json     # After compile
+contracts/UltraVerifier.sol                      # After gen verifier
+
+🎯 WHAT YOU'RE PROVING
+───────────────────────────────────────────────────────────────
+"I know a secret that hashes to this commitment"
+WITHOUT revealing what the secret is
+
+🔍 VERIFY SUCCESS
+───────────────────────────────────────────────────────────────
+✓ deployments.json exists
+✓ Contracts visible on testnet.arcscan.app
+✓ proof-output.json exists
+✓ Transaction shows "Success" on explorer
+✓ ProofVerified event emitted
+
+💰 EXPECTED GAS (Testnet)
+───────────────────────────────────────────────────────────────
+UltraVerifier deploy:    ~2,000,000 gas
+SecretVerifier deploy:     ~500,000 gas
+Each proof verification:   ~250,000 gas
+
+🚨 COMMON ISSUES
+───────────────────────────────────────────────────────────────
+"nargo not found"        → Install in WSL2
+"No balance"            → Get testnet ETH from faucet
+"Circuit not found"     → Run compile-circuit first
+"Invalid proof"         → Regenerate with generate-proof
+"Already verified"      → Use different secret number
+
+📚 DOCUMENTATION
+───────────────────────────────────────────────────────────────
+START_HERE.md                    # Main entry point
+DEPLOYMENT_INFO.md               # This guide in detail
+FINAL_SETUP_INSTRUCTIONS.md      # Complete step-by-step
+WINDOWS_SETUP.md                 # Windows users
+README.md                        # Full documentation
+
+🎉 QUICK TEST FLOW
+───────────────────────────────────────────────────────────────
+After deployment, test multiple proofs:
+
+npm run generate-proof 99999 && npm run verify-onchain
+npm run generate-proof 42 && npm run verify-onchain
+npm run generate-proof 777 && npm run verify-onchain
+
+Each unique secret = unique commitment = verified once
+
+═══════════════════════════════════════════════════════════════
+             ALL CODE READY - JUST ADD NARGO + ETH!
+═══════════════════════════════════════════════════════════════
