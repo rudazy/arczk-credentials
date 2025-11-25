@@ -1,0 +1,31 @@
+{
+  "name": "arczk-credentials",
+  "version": "1.0.0",
+  "description": "ZK proof system on Arc testnet - prove knowledge of secret commitments",
+  "main": "index.js",
+  "scripts": {
+    "compile-circuit": "bash scripts/compile-circuit.sh",
+    "generate-verifier": "bash scripts/generate-verifier.sh",
+    "deploy": "npx hardhat run scripts/deploy.ts --network arc",
+    "generate-proof": "ts-node scripts/generate-proof.ts",
+    "verify-onchain": "ts-node scripts/verify-onchain.ts",
+    "test": "npx hardhat test"
+  },
+  "keywords": ["zk", "noir", "arc", "testnet", "zero-knowledge"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@types/node": "^20.10.6",
+    "hardhat": "^2.19.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@noir-lang/backend_barretenberg": "^0.36.0",
+    "@noir-lang/noir_js": "^0.36.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.2"
+  }
+}

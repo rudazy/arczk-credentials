@@ -1,0 +1,11 @@
+node_modules/
+.env
+dist/
+cache/
+artifacts/
+typechain-types/
+deployments.json
+proof-output.json
+circuits/secret_hash/target/
+circuits/secret_hash/Prover.toml
+*.log
